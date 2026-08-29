@@ -29,39 +29,39 @@ body {
     margin: auto;
 }
 
-/* تعديل شريط الملاحة Navbar */
+/* ==================== Navbar Styles (تنسيق المنيو المطور) ==================== */
 .navbar {
-    background: rgba(0, 0, 64, 0.9); /* أزرق داكن ملكي شفاف (var(--primary-bg)) */
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 64, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 223, 255, 0.2);
     position: fixed;
     width: 100%;
     top: 0;
+    right: 0;
     z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    padding: 10px 0;
 }
 
-/* تنسيق اللوجو */
+/* اللوجو */
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
 }
+
 .logo-img {
-    height: 45px;          /* يمكن تعديل الارتفاع حسب حجم اللوجو المطلوب */
-    width: auto;           /* يضمن الحفاظ على أبعاد اللوجو دون تشويه */
+    height: 48px;
+    width: auto;
     object-fit: contain;
-    display: block;
-}
-.logo-icon {
-    color: var(--accent-color); /* الأزرق السماوي الساطع */
-    font-size: 26px;
 }
 
 .logo-text {
@@ -69,28 +69,184 @@ body {
     flex-direction: column;
 }
 
+.arabic-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--white-text);
+    letter-spacing: 0.3px;
+}
+
+.english-title {
+    font-size: 8px;
+    letter-spacing: 1.2px;
+    color: var(--text-muted);
+}
+
 /* روابط القائمة */
 .nav-links {
     display: flex;
-    gap: 18px;
+    align-items: center;
+    gap: 22px;
     list-style: none;
 }
 
-.nav-links a {
-    color: var(--text-muted); /* رمادي فاتح جداً */
-    text-decoration: none;
-    font-size: 13.5px;
-    font-weight: 400;
+.nav-links li {
     position: relative;
-    padding-bottom: 4px;
+}
+
+.nav-links a {
+    color: #e2e8f0;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.mobile-icon {
+    display: none; /* إخفاء الأيقونات في الشاشات الكبيرة لتظل القائمة مرتبة */
+}
+
+/* تأثير التمرير والتفعيل (Hover & Active Glow) */
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--accent-color);
+    text-shadow: 0 0 10px rgba(0, 223, 255, 0.4);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    transition: width 0.3s ease;
+    border-radius: 2px;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* معلومات الاتصال في الهيدر */
+.header-contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.phone-number {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.phone-number a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    direction: ltr;
+}
+
+.phone-number i {
+    color: var(--accent-color);
+    transform: scaleX(-1);
+    font-size: 13px;
+}
+
+.engineer-name {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding-right: 10px;
+    color: var(--text-muted);
+    font-size: 12.5px;
+    font-weight: 500;
+}
+
+.menu-toggle {
+    display: none;
+    color: var(--white-text);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 6px;
     transition: color 0.3s ease;
 }
 
-.nav-links a:hover, 
-.nav-links a.active {
-    color: var(--accent-color); /* الأزرق السماوي الساطع عند التمرير */
+.menu-toggle:hover {
+    color: var(--accent-color);
 }
 
+/* ==================== Responsive Mobile Menu (منيو الهواتف) ==================== */
+@media (max-width: 992px) {
+    .header-contact {
+        display: none; /* إخفاء تفاصيل الاتصال من الشريط العلوي على الهواتف لعدم الزحام */
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 68px;
+        right: -100%;
+        width: 270px;
+        height: calc(100vh - 68px);
+        background: rgba(0, 0, 50, 0.97);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 30px 20px;
+        gap: 10px;
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-left: 1px solid rgba(0, 223, 255, 0.15);
+        box-shadow: -10px 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 8px;
+        font-size: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        background: rgba(0, 223, 255, 0.1);
+        padding-right: 20px;
+    }
+
+    .mobile-icon {
+        display: inline-block;
+        width: 20px;
+        color: var(--accent-color);
+    }
+
+    .nav-links a::after {
+        display: none;
+    }
+}
 .nav-links a.active::after {
     background-color: var(--accent-color); /* الأزرق السماوي الساطع للخط السفلي */
 }
