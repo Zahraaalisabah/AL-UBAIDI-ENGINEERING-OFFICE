@@ -29,69 +29,56 @@ body {
     margin: auto;
 }
 
-/* ==================== Navbar Styles (تنسيق المنيو المطور) ==================== */
+/* ==================== Navbar Base Styles ==================== */
 .navbar {
-    background: rgba(0, 0, 64, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 223, 255, 0.2);
+    background: #000033; /* لون كحلي داكن ملكي معتم لضمان عدم تداخل النصوص */
+    border-bottom: 1px solid rgba(0, 223, 255, 0.25);
     position: fixed;
     width: 100%;
     top: 0;
     right: 0;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    z-index: 9999; /* أعلى طبقة بالكامل ليغطي كل مكونات الصفحة */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.6);
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    padding: 12px 0;
 }
 
 /* اللوجو */
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .logo-img {
-    height: 48px;
+    height: 45px;
     width: auto;
     object-fit: contain;
-}
-
-.logo-text {
-    display: flex;
-    flex-direction: column;
 }
 
 .arabic-title {
     font-weight: 700;
     font-size: 15px;
-    color: var(--white-text);
-    letter-spacing: 0.3px;
+    color: #ffffff;
 }
 
 .english-title {
     font-size: 8px;
-    letter-spacing: 1.2px;
-    color: var(--text-muted);
+    letter-spacing: 1px;
+    color: #cbd5e1;
 }
 
-/* روابط القائمة */
+/* روابط القائمة للشاشات الكبيرة */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 20px;
     list-style: none;
-}
-
-.nav-links li {
-    position: relative;
 }
 
 .nav-links a {
@@ -99,43 +86,129 @@ body {
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    padding: 8px 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+    padding: 6px 10px;
+    transition: all 0.3s ease;
+    border-radius: 6px;
 }
 
-.mobile-icon {
-    display: none; /* إخفاء الأيقونات في الشاشات الكبيرة لتظل القائمة مرتبة */
-}
-
-/* تأثير التمرير والتفعيل (Hover & Active Glow) */
 .nav-links a:hover,
 .nav-links a.active {
-    color: var(--accent-color);
-    text-shadow: 0 0 10px rgba(0, 223, 255, 0.4);
+    color: #00dfff;
+    background: rgba(0, 223, 255, 0.08);
 }
 
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 50%;
-    transform: translateX(50%);
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-    transition: width 0.3s ease;
-    border-radius: 2px;
+/* معلومات الاتصال بالهيدر */
+.header-contact {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
+.phone-number a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 13px;
+    direction: ltr;
 }
 
+.phone-number i {
+    color: #00dfff;
+    transform: scaleX(-1);
+    font-size: 13px;
+}
+
+.engineer-name {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    padding-right: 10px;
+    color: #cbd5e1;
+    font-size: 12.5px;
+}
+
+.menu-toggle {
+    display: none;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* ==================== Mobile Menu Fix (حل مشكلة الموبايل) ==================== */
+@media (max-width: 992px) {
+    .header-contact {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    /* خلفية معتمة خلف المنيو لتغطية نصوص الصفحة بالكامل */
+    .menu-overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 20, 0.75);
+        backdrop-filter: blur(4px);
+        z-index: 9998;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .menu-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* القائمة الجانبية معتمة ونظيفة تماماً */
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 280px;
+        height: 100vh;
+        background: #000028; /* لون مصمت داكن لعدم شفافية النصوص */
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 90px 20px 30px; /* مسافة علوية لعدم التداخل مع الهيدر */
+        gap: 8px;
+        z-index: 9999;
+        transition: right 0.35s ease-in-out;
+        box-shadow: -8px 0 30px rgba(0, 0, 0, 0.8);
+        border-left: 1px solid rgba(0, 223, 255, 0.2);
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links li {
+        width: 100%;
+    }
+
+    .nav-links a {
+        width: 100%;
+        padding: 12px 16px;
+        font-size: 15px;
+        color: #ffffff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+        background: rgba(0, 223, 255, 0.15);
+        color: #00dfff;
+    }
+}
 /* معلومات الاتصال في الهيدر */
 .header-contact {
     display: flex;
